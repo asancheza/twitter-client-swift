@@ -6,7 +6,7 @@
 //  Copyright © 2016 Neurowork. All rights reserved.
 //
 
-import Cocoa
+import BDBOAuth1Manager
 
 let twitterConsumerKey = ""
 let twitterConsumerSecret = ""
