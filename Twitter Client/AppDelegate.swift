@@ -7,12 +7,11 @@
 //
 
 import UIKit
+import BDBOAuth1Manager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -40,7 +39,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        TwitterClient.sharedInstance.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential!) -> Void in
+                print("Get the access token")
+                TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
+            
+                TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters:nil, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                        print("User: \(response)")
+                    }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                        print("Error verify credentials")
+                })
+            
+                TwitterClient.sharedInstance.GET(
+                    "1.1/statuses/home_timeline.json",
+                    parameters: nil,
+                    success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                        print("home_timeline: \(response!)")
+                    },
+                    failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                        print("Error getting current user")
+                        
+                })
+            
+            }) { (error: NSError!) -> Void in
+                print("Failed to receive access token")
+        }
+        
+        return true
+    }
 }
-

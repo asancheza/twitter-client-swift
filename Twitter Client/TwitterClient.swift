@@ -8,8 +8,8 @@
 
 import BDBOAuth1Manager
 
-let twitterConsumerKey = ""
-let twitterConsumerSecret = ""
+let twitterConsumerKey = "dW1rK57JAhSBVHw8jR8LNLESv"
+let twitterConsumerSecret = "56zJQTG1vmLyW8ilNdnqR3QGG6ndZGz07C01j7KGKnj32wF1EY"
 let twitterBaseUrl = NSURL(string: "https://api.twitter.com")
 
 class TwitterClient: BDBOAuth1SessionManager {
@@ -22,5 +22,4 @@ class TwitterClient: BDBOAuth1SessionManager {
         
         return Static.instance
     }
-
 }
