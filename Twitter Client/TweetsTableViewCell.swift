@@ -86,8 +86,6 @@ class TweetsTableViewCell: UITableViewCell {
                     self.retweetCount.text = String(self.tweet.retweetCount + 1)
                 }
             }
-            
-            
         })
     }
     

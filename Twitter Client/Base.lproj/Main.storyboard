@@ -48,16 +48,16 @@
                                     <action selector="onLogout:" destination="VKn-5X-DTN" eventType="touchUpInside" id="d25-Yk-WoF"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="114" sectionHeaderHeight="28" sectionFooterHeight="28" id="cLs-bP-cJ7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="164" sectionHeaderHeight="28" sectionFooterHeight="28" id="cLs-bP-cJ7">
                                 <rect key="frame" x="0.0" y="80" width="320" height="488"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="114" id="7pH-2L-TPX" customClass="TweetsTableViewCell" customModule="Twitter_Client" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="114"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="164" id="7pH-2L-TPX" customClass="TweetsTableViewCell" customModule="Twitter_Client" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="164"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7pH-2L-TPX" id="ku5-pL-0zH">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="163.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="hRc-sd-2BX">
@@ -65,42 +65,42 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qLP-S3-0Ta">
-                                                    <rect key="frame" x="89" y="8" width="84" height="21"/>
+                                                    <rect key="frame" x="118" y="0.0" width="84" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fZN-zz-Vbx">
-                                                    <rect key="frame" x="98" y="37" width="75" height="21"/>
+                                                    <rect key="frame" x="118" y="27" width="75" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tweetView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RU9-kN-fae">
-                                                    <rect key="frame" x="93" y="73" width="80" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tweetView" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RU9-kN-fae">
+                                                    <rect key="frame" x="118" y="56" width="187" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sV4-GT-ST1">
-                                                    <rect key="frame" x="161" y="8" width="76" height="21"/>
+                                                    <rect key="frame" x="223" y="0.0" width="76" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XTE-jc-RYT">
-                                                    <rect key="frame" x="139" y="92" width="42" height="21"/>
+                                                    <rect key="frame" x="139" y="134" width="42" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t77-VV-TgE">
-                                                    <rect key="frame" x="246" y="84" width="42" height="21"/>
+                                                    <rect key="frame" x="240" y="134" width="42" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -110,7 +110,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="favoriteCount" destination="t77-VV-TgE" id="lhA-gw-8SO"/>
-                                            <outlet property="name" destination="qLP-S3-0Ta" id="8dM-Im-j6X"/>
                                             <outlet property="nameLabel" destination="qLP-S3-0Ta" id="yha-AX-XRF"/>
                                             <outlet property="retweetCount" destination="XTE-jc-RYT" id="f0B-I0-26W"/>
                                             <outlet property="timeLabel" destination="fZN-zz-Vbx" id="ota-mP-6my"/>
