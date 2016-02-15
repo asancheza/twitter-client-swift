@@ -6,11 +6,14 @@
 //  Copyright © 2016 Neurowork. All rights reserved.
 //
 
+import UIKit
 import BDBOAuth1Manager
 
 let twitterConsumerKey = "dW1rK57JAhSBVHw8jR8LNLESv"
 let twitterConsumerSecret = "56zJQTG1vmLyW8ilNdnqR3QGG6ndZGz07C01j7KGKnj32wF1EY"
 let twitterBaseUrl = NSURL(string: "https://api.twitter.com")
+
+let change = "true"
 
 class TwitterClient: BDBOAuth1SessionManager {
     var loginCompletion: ((user: User?, error: NSError?) -> ())?
@@ -25,13 +28,27 @@ class TwitterClient: BDBOAuth1SessionManager {
         return Static.instance
     }
     
+    func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error:NSError?) -> ()){
+        GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            //print("home timeline: \(response)")
+            print("RESPONSES")
+            let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+            for tweet in tweets{
+                print("text: \(tweet.text) , created: \(tweet.createdAt)")
+            }
+            completion(tweets: tweets, error: nil)
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error getting home timeline")
+                completion(tweets: nil, error: error)
+        })
+    }
+    
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
         
         // Fetch my request token and redirect auth page
         TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "getautogrow://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
-            print("Got the request Token")
-            var authURL = NSURL(string:"https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
+            let authURL = NSURL(string:"https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
             UIApplication.sharedApplication().openURL(authURL!)
             }) { (error: NSError!) -> Void in
                 print("Failed request")
@@ -47,6 +64,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters:nil, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                 print("User: \(response)")
                 var user = User(dictionary: response as! NSDictionary)
+                User.currentUser = user
                 print(user.name)
                 self.loginCompletion?(user: user, error: nil)
                 }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
@@ -73,5 +91,35 @@ class TwitterClient: BDBOAuth1SessionManager {
                 print("Failed to receive access token")
                 self.loginCompletion?(user: nil, error: error)
         }
+    }
+    
+    func retweet(id: Int, params: NSDictionary?, completion: (error: NSError?) -> () ){
+        POST("1.1/statuses/retweet/\(id).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            print("Retweeted tweet with id: \(id)")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: change)
+            NSUserDefaults.standardUserDefaults().synchronize()
+            completion(error: nil)
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                print("Couldn't retweet")
+                print(error)
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: change)
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                completion(error: error)
+        })
+    }
+    
+    func favorited(id: Int, params: NSDictionary?, completion: (error: NSError?) -> () ){
+        POST("1.1/favorites/create.json?id=\(id)", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            print("Liked tweet with id: \(id)")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: change)
+            NSUserDefaults.standardUserDefaults().synchronize()
+            completion(error: nil)
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                print("Couldn't like tweet")
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: change)
+                NSUserDefaults.standardUserDefaults().synchronize()
+                completion(error: error)
+        })
     }
 }
