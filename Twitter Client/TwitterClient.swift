@@ -30,12 +30,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error:NSError?) -> ()){
         GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
-            //print("home timeline: \(response)")
-            print("RESPONSES")
             let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
-            for tweet in tweets{
-                print("text: \(tweet.text) , created: \(tweet.createdAt)")
-            }
             completion(tweets: tweets, error: nil)
             }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
                 print("error getting home timeline")
@@ -46,7 +41,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
         
-        // Fetch my request token and redirect auth page
         TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "getautogrow://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
             let authURL = NSURL(string:"https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
             UIApplication.sharedApplication().openURL(authURL!)
@@ -76,11 +70,6 @@ class TwitterClient: BDBOAuth1SessionManager {
                 parameters: nil,
                 success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                     var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
-                    
-                    for tweet in tweets {
-                        print("text \(tweet.text)")
-                    }
-                    //print("home_timeline: \(response!)")
                 },
                 failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
                     print("Error getting current user")
@@ -93,8 +82,8 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func retweet(id: Int, params: NSDictionary?, completion: (error: NSError?) -> () ){
-        POST("1.1/statuses/retweet/\(id).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+    func retweet(id: String, params: NSDictionary?, completion: (error: NSError?) -> () ){
+        TwitterClient.sharedInstance.POST("1.1/statuses/retweet/\(id).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             print("Retweeted tweet with id: \(id)")
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: change)
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -109,8 +98,8 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func favorited(id: Int, params: NSDictionary?, completion: (error: NSError?) -> () ){
-        POST("1.1/favorites/create.json?id=\(id)", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+    func favorited(id: String, params: NSDictionary?, completion: (error: NSError?) -> () ){
+        TwitterClient.sharedInstance.POST("1.1/favorites/create.json?id=\(id)", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             print("Liked tweet with id: \(id)")
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: change)
             NSUserDefaults.standardUserDefaults().synchronize()

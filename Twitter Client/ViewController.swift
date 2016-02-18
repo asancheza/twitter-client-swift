@@ -10,7 +10,6 @@ import UIKit
 import BDBOAuth1Manager
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -27,7 +26,6 @@ class ViewController: UIViewController {
             if user != nil {
                 // perform segue
                 self.performSegueWithIdentifier("loginSegue", sender:self)
-                
             } else {
                 // handle login error
             }
