@@ -15,6 +15,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
     
+    @IBAction func onCompose(sender: AnyObject) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -57,6 +61,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             return tweets.count
         }
         return 0
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let controller = storyboard.instantiateViewControllerWithIdentifier("DetailView") as! DetailViewController
+        controller.tweet = self.tweets![indexPath.row]
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func refreshControlAction(refreshControl: UIRefreshControl) {

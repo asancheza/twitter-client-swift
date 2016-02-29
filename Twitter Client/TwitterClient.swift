@@ -38,6 +38,14 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func postStatusUpdateWithParams(params: NSDictionary?, completion: (tweet: [Tweet]?, error:NSError?) -> ()){
+        GET("1.1/statuses/update.json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("error getting home timeline")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
         
